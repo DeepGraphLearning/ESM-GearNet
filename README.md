@@ -3,8 +3,7 @@
 
 This is the official codebase of the paper
 
-**A Systematic Study of Joint Representation Learning on Protein Sequences and Structures**
-
+**A Systematic Study of Joint Representation Learning on Protein Sequences and Structures** 
 [[ArXiv](https://arxiv.org/abs/2303.06275)]
 
 [Zuobai Zhang](https://oxer11.github.io/), [Chuanrui Wang*](https://wang-cr.github.io/), [Minghao Xu*](https://chrisallenming.github.io/), [Vijil Chenthamarakshan](https://researcher.watson.ibm.com/researcher/view.php?person=us-ecvijil), [Aurelie Lozano](https://researcher.watson.ibm.com/researcher/view.php?person=us-aclozano), [Payel Das](https://researcher.watson.ibm.com/researcher/view.php?person=us-daspa), [Jian Tang](https://jian-tang.com/)
