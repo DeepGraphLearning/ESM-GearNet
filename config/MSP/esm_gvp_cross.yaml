@@ -1,0 +1,59 @@
+output_dir: ~/scratch/aaai24_outputs
+
+dataset:
+  class: MSPDataset
+  path: ~/scratch/protein-datasets/
+  atom_feature: null
+  residue_feature: default
+  transform:
+    class: Compose
+    transforms:
+      - class: ProteinView
+        view: residue
+        keys: ["graph1", "graph2"]
+      - class: TruncateProteinPair
+        max_length: 1000
+
+task:
+  class: MSP
+  model:
+    class: FusionNetwork
+    sequence_model:
+      class: ESM
+      path: ~/scratch/protein-model-weights/esm-model-weights/
+      model: ESM-2-650M
+    structure_model:
+      class: GVPGNN
+      node_in_dim: [21, 0]
+      node_h_dim: [256, 16]
+      edge_in_dim: [16, 1]
+      edge_h_dim: [64, 1]
+      num_layers: 5
+      vector_gate: True
+      readout: mean
+      drop_rate: 0.1
+    fusion: cross
+    cross_dim: 512
+  graph_construction_model:
+    class: GraphConstruction
+    node_layers:
+      - class: AlphaCarbonNode
+    edge_layers:
+      - class: SpatialEdge
+        radius: 10.0
+        min_distance: 0
+
+optimizer:
+  class: Adam
+  lr: 1.0e-4
+
+engine:
+  gpus: [0, 1, 2, 3]
+  batch_size: 1
+  log_interval: 1000
+
+metric: auroc [label]
+sequence_model_lr_ratio: 0.1
+
+train:
+  num_epoch: 50

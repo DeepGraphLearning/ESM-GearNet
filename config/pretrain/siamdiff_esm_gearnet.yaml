@@ -1,0 +1,71 @@
+output_dir: ~/scratch/aaai24_output
+
+dataset:
+  class: AlphaFoldDB
+  path: ~/scratch/protein-datasets/alphafold
+  species_start: 0
+  species_end: 21
+  # species_id: 3
+  # split_id: 1
+  transform:
+    class: Compose
+    transforms:
+      - class: ProteinView
+        view: residue
+      - class: TruncateProtein
+        max_length: 150
+        random: True
+      - class: NoiseTransform
+        sigma: 0.3
+
+task:
+  class: SiamDiff
+  num_mlp_layer: 3
+  sigma_begin: 1.0e-3
+  sigma_end: 0.1
+  num_noise_level: 100
+  gamma: 0.5
+  model:
+    class: FusionNetwork
+    sequence_model:
+      class: ESM
+      path: ~/scratch/protein-model-weights/esm-model-weights/
+      model: ESM-2-650M
+    structure_model:
+      class: GearNet
+      input_dim: 1280
+      hidden_dims: [512, 512, 512, 512, 512, 512]
+      batch_norm: True
+      concat_hidden: True
+      short_cut: True
+      readout: 'sum'
+      num_relation: 7
+  graph_construction_model:
+    class: GraphConstruction
+    node_layers:
+      - class: AlphaCarbonNode
+    edge_layers:
+      - class: SequentialEdge
+        max_distance: 2
+      - class: SpatialEdge
+        radius: 10.0
+        min_distance: 5
+      - class: KNNEdge
+        k: 10
+        min_distance: 5
+    edge_feature: null
+
+optimizer:
+  class: Adam
+  lr: 1.0e-4
+
+engine:
+  gpus: [0, 1, 2, 3]
+  batch_size: 16
+  log_interval: 1000
+
+save_interval: 5
+fix_sequence_model: True
+
+train:
+  num_epoch: 50

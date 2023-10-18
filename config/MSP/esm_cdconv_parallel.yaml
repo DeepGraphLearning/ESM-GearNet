@@ -1,0 +1,55 @@
+output_dir: ~/scratch/aaai24_outputs
+
+dataset:
+  class: MSPDataset
+  path: ~/scratch/protein-datasets/
+  atom_feature: null
+  residue_feature: default
+  transform:
+    class: Compose
+    transforms:
+      - class: ResidueGraph
+        keys: ["graph1", "graph2"]
+      - class: TruncateProteinPair
+        max_length: 1000
+      - class: Orientation
+        keys: ["graph1", "graph2"]
+      - class: ProteinView
+        view: residue
+        keys: ["graph1", "graph2"]
+
+task:
+  class: MSP
+  model:
+    class: FusionNetwork
+    sequence_model:
+      class: ESM
+      path: ~/scratch/protein-model-weights/esm-model-weights/
+      model: ESM-2-650M
+    structure_model:
+      class: CDConv
+      input_dim: 21
+      hidden_dims: [256, 512, 1024, 2048]
+      embedding_dim: 16
+      batch_norm: True
+      cutoffs: [8.0, 12.0, 16.0, 20.0]
+      seq_cutoff: 21
+      kernel_dims: [32]
+      base_width: 16.0
+      dropout: 0.2
+    fusion: parallel
+
+optimizer:
+  class: Adam
+  lr: 1.0e-4
+
+engine:
+  gpus: [0, 1, 2, 3]
+  batch_size: 1
+  log_interval: 1000
+
+metric: auroc [label]
+sequence_model_lr_ratio: 0.1
+
+train:
+  num_epoch: 50

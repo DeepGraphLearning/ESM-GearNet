@@ -1,0 +1,49 @@
+output_dir: ~/scratch/aaai24_outputs
+
+dataset:
+  class: PSRDataset
+  path: ~/scratch/protein-datasets/
+  atom_feature: null
+  residue_feature: default
+  transform:
+    class: Compose
+    transforms:
+      - class: ResidueGraph
+        keys: ["graph"]
+      - class: Orientation
+        keys: ["graph"]
+      - class: ProteinView
+        view: residue
+
+task:
+  class: PropertyPrediction
+  model:
+    class: CDConv
+    input_dim: 21
+    hidden_dims: [256, 512, 1024, 2048]
+    embedding_dim: 16
+    batch_norm: True
+    cutoffs: [8.0, 12.0, 16.0, 20.0]
+    seq_cutoff: 21
+    kernel_dims: [32]
+    base_width: 16.0
+    dropout: 0.2
+  criterion: mse
+  num_mlp_layer: 3
+  metric: ['mae', 'rmse', 'spearmanr']
+  normalization: True
+  num_class: 1
+
+optimizer:
+  class: Adam
+  lr: 1.0e-4
+
+engine:
+  gpus: [0] #, 1, 2, 3]
+  batch_size: 8
+  log_interval: 1000
+
+metric: spearmanr [gdt_ts]
+
+train:
+  num_epoch: 50
