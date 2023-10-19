@@ -71,10 +71,10 @@ python -m torch.distributed.launch --nproc_per_node=4 script/downstream.py -c co
 python -m torch.distributed.launch --nproc_per_node=4 script/downstream.py -c config/GO/esm_gearnet.yaml --branch MF
 
 # Run ESM-GearNet (serial fusion) on the PSR dataset
-python -m torch.distributed.launch --nproc_per_node=4 script/downstream.py -c config/PSR/esm_gearnet.yaml --branch MF
+python -m torch.distributed.launch --nproc_per_node=4 script/downstream.py -c config/PSR/esm_gearnet.yaml
 
 # Run ESM-GearNet (serial fusion) on the MSP dataset
-python -m torch.distributed.launch --nproc_per_node=4 script/downstream.py -c config/MSP/esm_gearnet.yaml --branch MF
+python -m torch.distributed.launch --nproc_per_node=4 script/downstream.py -c config/MSP/esm_gearnet.yaml
 ```
 
 ### Pre-training and Fine-tuning
