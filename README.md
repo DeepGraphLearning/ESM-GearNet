@@ -34,6 +34,7 @@ with Python 3.7/3.8 and PyTorch version >= 1.12.0.
 ```bash
 conda install torchdrug pytorch=1.12.1 cudatoolkit=11.6 -c milagraph -c pytorch-lts -c pyg -c conda-forge
 conda install easydict pyyaml -c conda-forge
+conda install transformers==4.14.1 tokenizers==0.10.3 -c huggingface 
 pip install atom3d
 ```
 
@@ -44,6 +45,7 @@ pip install torch==1.12.1+cu116 -f https://download.pytorch.org/whl/lts/1.12/tor
 pip install torchdrug
 pip install easydict pyyaml
 pip install atom3d
+pip install transformers==4.14.1 tokenizers==0.10.3
 ```
 
 ## Reproduction
