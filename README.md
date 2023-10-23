@@ -21,7 +21,7 @@ We further explore six diverse pre-training techniques: ([Residue Type Predictio
 
 ![SSL](./asset/pretrain.png)
 
-You can find the pre-trained model weights here, including ESM-GearNet pre-trained with [Multiview Contrast](https://zenodo.org/records/10034578/files/mc_esm_gearnet.pth?download=1), [Residue Type Prediction](https://zenodo.org/records/10034578/files/attr_esm_gearnet.pth?download=1), [Distance Prediction](https://zenodo.org/records/10034578/files/dist_esm_gearnet.pth?download=1), [Angle Prediction](https://zenodo.org/records/10034578/files/angle_esm_gearnet.pth?download=1), [Dihedral Prediction](https://zenodo.org/records/10034578/files/dihedral_esm_gearnet.pth?download=1) and [SiamDiff](https://zenodo.org/records/10034578/files/siamdiff_esm_gearnet.pth?download=1).
+You can find the pre-trained model weights [here](https://zenodo.org/records/10034578), including ESM-GearNet pre-trained with [Multiview Contrast](https://zenodo.org/records/10034578/files/mc_esm_gearnet.pth?download=1), [Residue Type Prediction](https://zenodo.org/records/10034578/files/attr_esm_gearnet.pth?download=1), [Distance Prediction](https://zenodo.org/records/10034578/files/dist_esm_gearnet.pth?download=1), [Angle Prediction](https://zenodo.org/records/10034578/files/angle_esm_gearnet.pth?download=1), [Dihedral Prediction](https://zenodo.org/records/10034578/files/dihedral_esm_gearnet.pth?download=1) and [SiamDiff](https://zenodo.org/records/10034578/files/siamdiff_esm_gearnet.pth?download=1).
 
 
 ## Installation
